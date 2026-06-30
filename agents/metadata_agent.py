@@ -10,20 +10,22 @@ genai.configure(
 
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-def generate_interview_questions(text):
+
+def extract_metadata(text):
 
     prompt = f"""
-    Analyze this research paper and generate:
+    Extract the following information from this research paper.
 
-    1. 5 Basic Questions
-    2. 10 Technical Questions
-    3. 5 Research-Oriented Questions
-    4. 5 Viva Questions
+    Return ONLY:
 
-    Return only questions.
+    Title:
+    Authors:
+    Publication Year:
+    DOI:
+    Keywords:
 
     Paper:
-    {text[:20000]}
+    {text[:15000]}
     """
 
     response = model.generate_content(prompt)

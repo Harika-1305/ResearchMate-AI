@@ -11,20 +11,22 @@ genai.configure(
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 
-def generate_research_gaps(text):
+def generate_scorecard(text):
 
     prompt = f"""
-    Analyze the following research paper and provide:
+    Act as a research paper reviewer.
 
-    1. Research Gaps
-    2. Limitations of the Study
-    3. Missing Experiments
-    4. Future Research Directions
-    5. Novel Ideas to Improve the Work
+    Evaluate the paper and score:
 
-    Format the response using headings and bullet points.
+    Novelty (out of 10)
+    Technical Complexity (out of 10)
+    Dataset Quality (out of 10)
+    Deployment Readiness (out of 10)
+    Research Impact (out of 10)
 
-    Research Paper:
+    Also provide a short justification.
+
+    Paper:
     {text[:20000]}
     """
 

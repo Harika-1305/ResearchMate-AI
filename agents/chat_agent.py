@@ -11,21 +11,19 @@ genai.configure(
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 
-def generate_research_gaps(text):
+def chat_with_paper(text, question):
 
     prompt = f"""
-    Analyze the following research paper and provide:
+    You are an intelligent research assistant.
 
-    1. Research Gaps
-    2. Limitations of the Study
-    3. Missing Experiments
-    4. Future Research Directions
-    5. Novel Ideas to Improve the Work
-
-    Format the response using headings and bullet points.
+    Answer the user's question only using
+    the information available in the paper.
 
     Research Paper:
-    {text[:20000]}
+    {text[:25000]}
+
+    User Question:
+    {question}
     """
 
     response = model.generate_content(prompt)

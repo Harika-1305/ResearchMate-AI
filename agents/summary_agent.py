@@ -11,19 +11,25 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-model = genai.GenerativeModel("gemini-2.5-flash")
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 def generate_summary(text):
-
     prompt = f"""
-    Analyze this research paper and provide:
+    Analyze this research paper.
 
-    1. Paper Title
-    2. Research Objective
-    3. Methodology
-    4. Dataset Used
-    5. Results
-    6. Key Contributions
+    Return the response in this exact format:
+
+    \n# Paper Title
+
+    \n# Research Objective
+
+    \n# Methodology
+
+    \n# Dataset Used
+
+    \n# Results
+
+    \n# Key Contributions
 
     Paper Content:
     {text[:15000]}
