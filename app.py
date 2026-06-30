@@ -5,7 +5,6 @@ from agents.chat_agent import chat_with_paper
 from agents.ppt_agent import generate_ppt
 from agents.metadata_agent import extract_metadata
 from agents.scorecard_agent import generate_scorecard
-from agents.master_agent import generate_master_analysis
 
 from utils.pdf_reader import extract_text
 from utils.ppt_generator import create_ppt
@@ -47,22 +46,12 @@ if pdf is not None:
 
     st.success("PDF Uploaded Successfully")
 
+
     text = extract_text(pdf)
 
-    if (
-        "analysis" not in st.session_state
-        or st.session_state.get("last_file") != pdf.name
-    ):
-
-        st.session_state.last_file = pdf.name
-
-        with st.spinner(
-            "Analyzing Paper Once..."
-        ):
-
-            st.session_state.analysis = (
-                generate_master_analysis(text)
-            )
+    st.write(
+        f"**Text Length:** {len(text)} characters"
+    )
 
     st.write(
         f"**Text Length:** {len(text)} characters"
