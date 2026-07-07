@@ -3,8 +3,8 @@ from agents.gap_agent import generate_research_gaps
 from agents.interview_agent import generate_interview_questions
 from agents.chat_agent import chat_with_paper
 from agents.ppt_agent import generate_ppt
-from agents.metadata_agent import extract_metadata
 from agents.scorecard_agent import generate_scorecard
+from agents.metadata_agent import extract_metadata
 
 from utils.pdf_reader import extract_text
 from utils.ppt_generator import create_ppt
@@ -12,6 +12,9 @@ from utils.report_generator import create_report
 
 import streamlit as st
 
+# =====================================
+# PAGE CONFIG
+# =====================================
 
 st.set_page_config(
     page_title="ResearchMate AI",
@@ -46,12 +49,7 @@ if pdf is not None:
 
     st.success("PDF Uploaded Successfully")
 
-
     text = extract_text(pdf)
-
-    st.write(
-        f"**Text Length:** {len(text)} characters"
-    )
 
     st.write(
         f"**Text Length:** {len(text)} characters"
@@ -68,9 +66,13 @@ if pdf is not None:
 
         try:
 
-            metadata = extract_metadata(text)
+            metadata = extract_metadata(
+                text
+            )
 
-            st.markdown(metadata)
+            st.markdown(
+                metadata
+            )
 
         except Exception as e:
 
@@ -82,7 +84,9 @@ if pdf is not None:
     # EXTRACTED TEXT
     # =====================================
 
-    st.subheader("Extracted Text")
+    st.subheader(
+        "Extracted Text"
+    )
 
     st.text_area(
         "Paper Content",

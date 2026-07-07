@@ -1,15 +1,13 @@
-import os
-import google.generativeai as genai
+from openai import OpenAI
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-genai.configure(
-    api_key=os.getenv("GEMINI_API_KEY")
+client = OpenAI(
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1"
 )
-
-model = genai.GenerativeModel("gemini-2.0-flash")
-
 
 def generate_research_gaps(text):
 
@@ -25,9 +23,23 @@ def generate_research_gaps(text):
     Format the response using headings and bullet points.
 
     Research Paper:
-    {text[:20000]}
+    {text[:5000]}
     """
 
-    response = model.generate_content(prompt)
+    try:
 
-    return response.text
+        response = client.chat.completions.create(
+            model="openrouter/free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+
+        return f"API Error: {str(e)}"

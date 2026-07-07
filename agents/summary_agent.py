@@ -1,40 +1,51 @@
-import os
-import google.generativeai as genai
+from openai import OpenAI
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-api_key = os.getenv("GEMINI_API_KEY")
-
-if not api_key:
-    raise ValueError("GEMINI_API_KEY not found in .env file")
-
-genai.configure(api_key=api_key)
-
-model = genai.GenerativeModel("gemini-2.0-flash")
+client = OpenAI(
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1"
+)
 
 def generate_summary(text):
+
     prompt = f"""
     Analyze this research paper.
 
     Return the response in this exact format:
 
-    \n# Paper Title
+    # Paper Title
 
-    \n# Research Objective
+    # Research Objective
 
-    \n# Methodology
+    # Methodology
 
-    \n# Dataset Used
+    # Dataset Used
 
-    \n# Results
+    # Results
 
-    \n# Key Contributions
+    # Key Contributions
 
     Paper Content:
-    {text[:15000]}
+    {text[:5000]}
     """
 
-    response = model.generate_content(prompt)
+    try:
 
-    return response.text
+        response = client.chat.completions.create(
+            model="openrouter/free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+
+        return f"API Error: {str(e)}"

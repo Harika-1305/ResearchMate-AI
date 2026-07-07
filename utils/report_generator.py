@@ -11,7 +11,7 @@ def create_report(
     doc = Document()
 
     doc.add_heading(
-        "ResearchMate AI Report",
+        "Research Report",
         level=1
     )
 
@@ -20,31 +20,43 @@ def create_report(
         level=2
     )
 
-    doc.add_paragraph(summary)
+    doc.add_paragraph(
+        summary
+    )
 
     doc.add_heading(
         "Research Gaps",
         level=2
     )
 
-    doc.add_paragraph(gaps)
+    doc.add_paragraph(
+        gaps
+    )
 
     doc.add_heading(
         "Interview Questions",
         level=2
     )
 
-    doc.add_paragraph(questions)
+    doc.add_paragraph(
+        questions
+    )
 
     doc.add_heading(
         "PPT Outline",
         level=2
     )
 
-    doc.add_paragraph(ppt)
+    doc.add_paragraph(
+        ppt
+    )
 
-    file_name = "Research_Report.docx"
+    report_path = (
+        "Research_Report.docx"
+    )
 
-    doc.save(file_name)
+    doc.save(
+        report_path
+    )
 
-    return file_name
+    return report_path

@@ -1,7 +1,19 @@
+# Environment
 .env
 venv/
+
+# Python
 __pycache__/
 *.pyc
 
+# IDE Files
+.idea/
+.vscode/
+
+# Generated Reports
 ResearchMate_Presentation.pptx
 Research_Report.docx
+
+# OS Files
+.DS_Store
+Thumbs.db
